@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.*;
 
 public class Model implements Sujet{
 
@@ -7,6 +8,10 @@ public class Model implements Sujet{
     private Carte cartePrecedente;
     private int NbPaires;
     private int NbCoups;
+
+    public void melanger() {
+        Collections.shuffle(cartes);
+    }
 
     @Override
     public void enregistrerObservateur(Observateur o) {
