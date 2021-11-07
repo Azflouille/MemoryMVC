@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -9,8 +10,24 @@ public class Model implements Sujet{
     private int NbPaires;
     private int NbCoups;
 
+    public Model() {
+        observateurs = new ArrayList<Observateur>();
+        cartes = new ArrayList<Carte>();
+        for (int i = 0; i < 20; i++) {
+            Carte carte = new Carte((int) i / 2);
+            cartes.add(carte);}
+    }
+
     public void melanger() {
         Collections.shuffle(cartes);
+        this.notifierObservateurs();
+        for (int i = 0; i < 20; i++) {
+            System.out.println(cartes.get(i).getNum());
+        }
+    }
+
+    public ArrayList<Carte> getCartes(){
+        return this.cartes;
     }
 
     @Override

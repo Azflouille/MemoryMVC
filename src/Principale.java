@@ -26,18 +26,23 @@ public class Principale {
 		Border raisedbevel 	= BorderFactory.createRaisedBevelBorder();
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		compound 			= BorderFactory.createCompoundBorder(raisedbevel, loweredbevel);
-					
+		Model model = new Model();
+		VueGraphique vueGraphique = new VueGraphique();
+		ControleurBoutons ControleurB = new ControleurBoutons(model);
+		model.enregistrerObservateur(vueGraphique);
+		model.notifierObservateurs();
+
 		
 		/***************************************************************
 		*Creation de la liste de cartes avec un doublon de chaque carte
 		****************************************************************/
-		ArrayList<Carte> cartes = new ArrayList<Carte>();
+		/*ArrayList<Carte> cartes = new ArrayList<Carte>();
 		for (int i = 0; i < 20; i++) {
 			Carte carte = new Carte((int) i / 2);
 			cartes.add(carte);
 		}
 		// Mélange des cartes
-		Collections.shuffle(cartes);  
+		Collections.shuffle(cartes); */
 		
 		
 		/*******************************************************************
@@ -45,13 +50,13 @@ public class Principale {
 		* les JLabel avec une ImageIcon associee a chaque carte
 		* Le choix du jeu de carte est fait selon la valeur de répertoire
 		********************************************************************/
-		JPanel plateau =new JPanel();
-		plateau.setBorder(compound);
-		plateau.setLayout(new GridLayout(4, 5));
-		plateau.setSize(120 * 5, 120 * 4);
+		//JPanel plateau =new JPanel();
+		vueGraphique.setBorder(compound);
+		vueGraphique.setLayout(new GridLayout(4, 5));
+		vueGraphique.setSize(120 * 5, 120 * 4);
 		
 		//Création des JLabel associés aux cartes - affichage dans le JPanel Plateau
-		String chemin ;
+		/*String chemin ;
 		String repertoire="smiley"; //ou "fruits" selon la série choisie
 		for (int i = 0; i < 20; i++) {
 			if(cartes.get(i).isVisible())  //si l'attribut visible de la carte est a true alors l'image de la carte apparaitra 
@@ -59,7 +64,7 @@ public class Principale {
 			else
 				chemin= "img/" + repertoire + "/fond.png";//sinon l'image de la carte retournée apparaitra
 			plateau.add(new JLabel(new ImageIcon(chemin))); //association du fichier image avec le JLabel avec la classe ImageIcon
-		}		
+		}*/
 
 		
 		/********************************************************************
@@ -101,7 +106,8 @@ public class Principale {
 		JButton boutonCacher = new JButton("Cacher");
 		panneauChoix.add(boutonCacher);
 
-		JButton boutonMelanger = new JButton("Melanger");		
+		JButton boutonMelanger = new JButton("Melanger");
+		boutonMelanger.addActionListener(ControleurB);
 		panneauChoix.add(boutonMelanger);
 		
 	 
@@ -111,7 +117,7 @@ public class Principale {
 		JFrame frame=new JFrame("Memory MVC");
 		frame.getContentPane().setBackground(Color.BLUE);	 
 		
-		frame.add(plateau,BorderLayout.NORTH);
+		frame.add(vueGraphique,BorderLayout.NORTH);
 		frame.add(panneauScore,BorderLayout.CENTER);
 		frame.add(panneauChoix, BorderLayout.SOUTH);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
