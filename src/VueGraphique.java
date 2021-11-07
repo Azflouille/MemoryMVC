@@ -7,17 +7,20 @@ public class VueGraphique extends JPanel implements Observateur{
 
     @Override
     public void actualiser(Sujet s) {
+        if (this.countComponents() != 0) {
+                this.removeAll();
+        }
         Model m = (Model) s;
+        String doss = m.getRep();
         ArrayList<Carte> cartes = m.getCartes();
-        //Création des JLabel associés aux cartes - affichage dans le JPanel Plateau
         String chemin;
-        String repertoire="smiley"; //ou "fruits" selon la série choisie
+        String repertoire= doss;
         for (int i = 0; i < 20; i++) {
-            if(cartes.get(i).isVisible())  //si l'attribut visible de la carte est a true alors l'image de la carte apparaitra
+            if(cartes.get(i).isVisible())
                 chemin = "img/" + repertoire + "/im" + cartes.get(i).getNum()+".png";
             else
-                chemin= "img/" + repertoire + "/fond.png";//sinon l'image de la carte retournée apparaitra
-            this.add(new JLabel(new ImageIcon(chemin))); //association du fichier image avec le JLabel avec la classe ImageIcon
+                chemin= "img/" + repertoire + "/fond.png";
+            this.add(new JLabel(new ImageIcon(chemin)));
         }
     }
 }

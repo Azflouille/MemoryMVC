@@ -14,5 +14,14 @@ public class ControleurBoutons implements ActionListener {
         if (e.getActionCommand().equals("Melanger")) {
             this.model.melanger();
         }
+        if (e.getActionCommand().equals("Cacher")) {
+            this.model.cacher();
+        }
+        if (e.getActionCommand().equals("Smiley")) {
+            this.model.setRep(1);
+        }
+        if (e.getActionCommand().equals("Fruits")) {
+            this.model.setRep(2);
+        }
     }
 }

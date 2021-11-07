@@ -1,13 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.Collections;
-
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,9 +14,6 @@ public class Principale {
 
 	public static void main(String[] args) {
 
-		/**********************************
-		* Création des bords des composants
-		***********************************/
 		Border 			compound;
 		Border raisedbevel 	= BorderFactory.createRaisedBevelBorder();
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
@@ -30,42 +22,10 @@ public class Principale {
 		VueGraphique vueGraphique = new VueGraphique();
 		ControleurBoutons ControleurB = new ControleurBoutons(model);
 		model.enregistrerObservateur(vueGraphique);
-		model.notifierObservateurs();
 
-		
-		/***************************************************************
-		*Creation de la liste de cartes avec un doublon de chaque carte
-		****************************************************************/
-		/*ArrayList<Carte> cartes = new ArrayList<Carte>();
-		for (int i = 0; i < 20; i++) {
-			Carte carte = new Carte((int) i / 2);
-			cartes.add(carte);
-		}
-		// Mélange des cartes
-		Collections.shuffle(cartes); */
-		
-		
-		/*******************************************************************
-		* Le JPanel plateau au nord dans lequel les cartes sont affichees
-		* les JLabel avec une ImageIcon associee a chaque carte
-		* Le choix du jeu de carte est fait selon la valeur de répertoire
-		********************************************************************/
-		//JPanel plateau =new JPanel();
 		vueGraphique.setBorder(compound);
 		vueGraphique.setLayout(new GridLayout(4, 5));
 		vueGraphique.setSize(120 * 5, 120 * 4);
-		
-		//Création des JLabel associés aux cartes - affichage dans le JPanel Plateau
-		/*String chemin ;
-		String repertoire="smiley"; //ou "fruits" selon la série choisie
-		for (int i = 0; i < 20; i++) {
-			if(cartes.get(i).isVisible())  //si l'attribut visible de la carte est a true alors l'image de la carte apparaitra 
-				chemin = "img/" + repertoire + "/im" + cartes.get(i).getNum()+".png";
-			else
-				chemin= "img/" + repertoire + "/fond.png";//sinon l'image de la carte retournée apparaitra
-			plateau.add(new JLabel(new ImageIcon(chemin))); //association du fichier image avec le JLabel avec la classe ImageIcon
-		}*/
-
 		
 		/********************************************************************
 		* Le JPanel panneauScore au centre de l'IG contenant des informations
@@ -98,12 +58,15 @@ public class Principale {
 		
 
 		JButton boutonSmiley = new JButton("Smiley");
+		boutonSmiley.addActionListener(ControleurB);
 		panneauChoix.add(boutonSmiley);
 		
 		JButton boutonFruits = new JButton("Fruits");
+		boutonFruits.addActionListener(ControleurB);
 		panneauChoix.add(boutonFruits);
 		
 		JButton boutonCacher = new JButton("Cacher");
+		boutonCacher.addActionListener(ControleurB);
 		panneauChoix.add(boutonCacher);
 
 		JButton boutonMelanger = new JButton("Melanger");
