@@ -9,13 +9,13 @@ public class Model implements Sujet{
     private int NbPaires;
     private int NbCoups;
     private String rep;
-    private ArrayList<Carte> CarteRetournee;
+    private Carte cartePrecedante;
+    private Carte secondeCarte;
 
     public Model() {
         observateurs = new ArrayList<Observateur>();
         cartes = new ArrayList<Carte>();
         rep = "smiley";
-        this.CarteRetournee = new ArrayList<Carte>();
         for (int i = 0; i < 20; i++) {
             Carte carte = new Carte((int) i / 2);
             cartes.add(carte);}
@@ -27,41 +27,42 @@ public class Model implements Sujet{
         this.notifierObservateurs();
     }
 
-    public void cacher(int nb) {
-        if (nb == -1) {
+    public void cacher() {
         for (int i = 0; i < 20; i++) {
             cartes.get(i).setVisible(false);
-            }
-        }
-        else {
-            for (int i = 0; i < 20; i++) {
-                if (cartes.get(i).getNum() == nb) {
-                    cartes.get(i).setVisible(false);
-                }
-            }
         }
         this.notifierObservateurs();
     }
 
     public void retourner(int i) {
-        if (cartes.get(i).isVisible() == false) {
-            cartes.get(i).setVisible(true);
-            this.CarteRetournee.add(this.cartes.get(i));
-        }
-        //Je suis panomarix le druide
-        if ((CarteRetournee.toArray().length % 2) == 0 && CarteRetournee.toArray().length != 1) {
-            if (CarteRetournee.get(CarteRetournee.toArray().length -1).getNum() == CarteRetournee.get(CarteRetournee.toArray().length -2).getNum()) {
-                System.out.println("bien joué batar");
+        if(this.secondeCarte == null) {
+            if (this.cartePrecedante != null) {
+                this.cartes.get(i).setVisible(true);
+                if (this.cartePrecedante.getNum() == this.cartes.get(i).getNum()) {
+                    this.cartePrecedante = null;
+                    this.secondeCarte = null;
+                    this.NbPaires++;
+                    //arreter la partie si 10 paires trouvées
+                    // if(this.nbCartesDecouvertes == 10){
+                    //}
+                }
+                else {
+                    this.secondeCarte = this.cartes.get(i);
+                }
             }
-            else if (CarteRetournee.toArray().length != 1){
-                this.cacher(CarteRetournee.get(CarteRetournee.toArray().length -1).getNum());
-                this.cacher(CarteRetournee.get(CarteRetournee.toArray().length -2).getNum());
+            else {
+                this.cartes.get(i).setVisible(true);
+                this.cartePrecedante = this.cartes.get(i);
             }
         }
-
-        if ((CarteRetournee.toArray().length % 2) == 0) {
-            this.NbCoups++;
+        else {
+            this.cartes.get(i).setVisible(true);
+            this.cartePrecedante.setVisible(false);
+            this.secondeCarte.setVisible(false);
+            this.cartePrecedante = this.cartes.get(i);
+            this.secondeCarte = null;
         }
+        this.NbCoups++;
         this.notifierObservateurs();
     }
 

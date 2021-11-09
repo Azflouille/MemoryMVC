@@ -10,6 +10,7 @@ public class VueCoups extends JLabel implements Observateur {
     public void actualiser(Sujet s) {
 
         Model m = (Model) s;
-        this.setText(" Nombre de coups joués : " + m.getNbCoups());
+        int coups = (m.getNbCoups()/2);
+        this.setText(" Nombre de coups joués : " + coups);
     }
 }
