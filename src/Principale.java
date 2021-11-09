@@ -21,7 +21,9 @@ public class Principale {
 		Model model = new Model();
 		VueGraphique vueGraphique = new VueGraphique();
 		ControleurBoutons ControleurB = new ControleurBoutons(model);
+		ControleurClick ControleurC = new ControleurClick(model);
 		model.enregistrerObservateur(vueGraphique);
+		vueGraphique.addMouseListener(ControleurC);
 
 		vueGraphique.setBorder(compound);
 		vueGraphique.setLayout(new GridLayout(4, 5));
@@ -34,16 +36,16 @@ public class Principale {
 		JPanel 			panneauScore;
 		panneauScore= new JPanel(new GridLayout(2,1));
 		
-		JLabel 			nbCoups;
-		nbCoups=new JLabel(" Nombre de coups joués : 0 ",JLabel.CENTER);
+		VuePaires nbCoups = new VuePaires(); //j'ai échangé nbcoups et nbpaires, domaj
+		model.enregistrerObservateur(nbCoups);
 		nbCoups.setPreferredSize(new Dimension(605,55));
 		nbCoups.setOpaque(true);
 		nbCoups.setForeground(Color.blue);
 		nbCoups.setBorder(compound);
 		panneauScore.add(nbCoups);
 	
-		JLabel		 	nbPaires;
-		nbPaires=new JLabel("Nombre de paires découvertes :  0 ",JLabel.CENTER);
+		VueCoups nbPaires = new VueCoups();
+		model.enregistrerObservateur(nbPaires);
 		nbPaires.setPreferredSize(new Dimension(605,55));
 		nbPaires.setOpaque(true);
 		nbPaires.setForeground(Color.blue);
