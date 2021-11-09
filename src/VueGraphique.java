@@ -9,6 +9,8 @@ public class VueGraphique extends JPanel implements Observateur{
     public void actualiser(Sujet s) {
         if (this.countComponents() != 0) {
                 this.removeAll();
+                this.revalidate();
+                this.repaint();
         }
         Model m = (Model) s;
         String doss = m.getRep();

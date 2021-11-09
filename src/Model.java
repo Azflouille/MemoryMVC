@@ -27,11 +27,29 @@ public class Model implements Sujet{
     }
 
     public void cacher() {
-        System.out.println("Cacher");
         for (int i = 0; i < 20; i++) {
             cartes.get(i).setVisible(false);
-            this.notifierObservateurs();
         }
+        this.notifierObservateurs();
+    }
+
+    public void retourner(int i) {
+        if (cartes.get(i).isVisible() == false) {
+            cartes.get(i).setVisible(true);
+        }
+        int CompteurRetourne = 0;
+        for (int j = 0; j < 20; j++) {
+            if (cartes.get(j).isVisible() == true) {
+                CompteurRetourne++;
+            }
+        }
+        if (CompteurRetourne == 3) {
+            this.cacher();
+        }
+        if (CompteurRetourne == 2) {
+            this.NbCoups++;
+        }
+        this.notifierObservateurs();
     }
 
     public void setRep(int i) {
@@ -51,6 +69,10 @@ public class Model implements Sujet{
     public String getRep() {
         return this.rep;
     }
+
+    public int getNbCoups() {return this.NbCoups;}
+
+    public int getNbPaires() {return this.NbPaires;}
 
     @Override
     public void enregistrerObservateur(Observateur o) {
