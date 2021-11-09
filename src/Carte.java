@@ -4,7 +4,7 @@ public class Carte {
 
 	public Carte(int num) {
 		this.num = num;
-		this.visible = true;    //--> A METTRE A false POUR LE JEU
+		this.visible = false;    //--> A METTRE A false POUR LE JEU
 	}
 
 	public boolean isVisible() {
