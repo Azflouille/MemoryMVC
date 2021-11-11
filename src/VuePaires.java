@@ -10,6 +10,12 @@ public class VuePaires extends JLabel implements Observateur {
     public void actualiser(Sujet s) {
 
         Model m = (Model) s;
-        this.setText(" Nombre de paires trouvées : " + m.getNbPaires());
+        Boolean finis = m.getFinis();
+        if (!finis) {
+            this.setText(" Nombre de paires trouvées : " + m.getNbPaires());
+        }
+        else {
+            this.setText(" Ohh putain, QI de 143 ");
+        }
     }
 }

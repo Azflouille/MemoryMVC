@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -11,11 +10,13 @@ public class Model implements Sujet{
     private String rep;
     private Carte cartePrecedante;
     private Carte secondeCarte;
+    private boolean finis;
 
     public Model() {
-        observateurs = new ArrayList<Observateur>();
-        cartes = new ArrayList<Carte>();
-        rep = "smiley";
+        this.observateurs = new ArrayList<Observateur>();
+        this.cartes = new ArrayList<Carte>();
+        this.rep = "smiley";
+        this.finis = false;
         for (int i = 0; i < 20; i++) {
             Carte carte = new Carte((int) i / 2);
             cartes.add(carte);}
@@ -35,27 +36,25 @@ public class Model implements Sujet{
     }
 
     public void retourner(int i) {
-        if(this.secondeCarte == null) {
+        if (this.secondeCarte == null) {
             if (this.cartePrecedante != null) {
                 this.cartes.get(i).setVisible(true);
                 if (this.cartePrecedante.getNum() == this.cartes.get(i).getNum()) {
                     this.cartePrecedante = null;
                     this.secondeCarte = null;
                     this.NbPaires++;
-                    //arreter la partie si 10 paires trouvées
-                    // if(this.nbCartesDecouvertes == 10){
-                    //}
+                    if (this.NbPaires == 10) {
+                        this.finis = true;
+                    }
                 }
                 else {
                     this.secondeCarte = this.cartes.get(i);
                 }
-            }
-            else {
+            } else {
                 this.cartes.get(i).setVisible(true);
                 this.cartePrecedante = this.cartes.get(i);
             }
-        }
-        else {
+        } else {
             this.cartes.get(i).setVisible(true);
             this.cartePrecedante.setVisible(false);
             this.secondeCarte.setVisible(false);
@@ -63,16 +62,6 @@ public class Model implements Sujet{
             this.secondeCarte = null;
         }
         this.NbCoups++;
-        this.notifierObservateurs();
-    }
-
-    public void setRep(int i) {
-        if (i == 1) {
-            this.rep = "smiley";
-        }
-        if (i ==2) {
-            this.rep = "fruits";
-        }
         this.notifierObservateurs();
     }
 
@@ -84,9 +73,21 @@ public class Model implements Sujet{
         return this.rep;
     }
 
+    public void setRep(int i){
+        if (i == 1) {
+            this.rep = "smiley";
+        }
+        if (i ==2) {
+            this.rep = "fruits";
+        }
+        this.notifierObservateurs();
+    }
+
     public int getNbCoups() {return this.NbCoups;}
 
     public int getNbPaires() {return this.NbPaires;}
+
+    public boolean getFinis() {return this.finis;}
 
     @Override
     public void enregistrerObservateur(Observateur o) {
