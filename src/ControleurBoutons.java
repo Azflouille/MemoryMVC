@@ -1,6 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Classe controleur du MVC, gère l'action sur les boutons
+ */
 public class ControleurBoutons implements ActionListener {
 
     private Model model;
@@ -9,6 +12,9 @@ public class ControleurBoutons implements ActionListener {
         this.model = m;
     }
 
+    /**
+     * Méthode ActionPerfomed, appelle les méthode correspondantes aux boutons appellée dans la classe modèle
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Melanger")) {

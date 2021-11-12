@@ -1,17 +1,36 @@
 import java.util.ArrayList;
 import java.util.*;
 
+/**
+ * Class Modèle du MVC.
+ */
 public class Model implements Sujet{
 
+    /** La liste des cartes du jeu */
     private ArrayList<Carte> cartes;
+
     private ArrayList<Observateur> observateurs;
+    
+    /** Le nombre de paires trouvées */
     private int NbPaires;
+    
+    /** Le nombre de coups joués */
     private int NbCoups;
+    
+    /** Le répéertoire, permet de passer du mode smiley à fruit */
     private String rep;
+
     private Carte cartePrecedante;
+    
+    /** La carte suivant la carte précédente #jesuisdruide */
     private Carte secondeCarte;
+    
+    /** Vaut true quand le joueur à trouvé les 10 paires */
     private boolean finis;
 
+    /**
+     * Constructeur, créer la liste de carte avec un doublon pour chaque numéro
+     */
     public Model() {
         this.observateurs = new ArrayList<Observateur>();
         this.cartes = new ArrayList<Carte>();
@@ -20,14 +39,19 @@ public class Model implements Sujet{
         for (int i = 0; i < 20; i++) {
             Carte carte = new Carte((int) i / 2);
             cartes.add(carte);}
-        this.notifierObservateurs();
     }
 
+    /**
+     * Mélange les cartes
+     */
     public void melanger() {
         Collections.shuffle(cartes);
         this.notifierObservateurs();
     }
 
+    /**
+     * Cache les cartes
+     */
     public void cacher() {
         for (int i = 0; i < 20; i++) {
             cartes.get(i).setVisible(false);
@@ -35,6 +59,10 @@ public class Model implements Sujet{
         this.notifierObservateurs();
     }
 
+    /**
+     * Retourne le carte correspondant au numéro donné en paramètres dans le liste
+     * Gère les cas ou aucune carte n'a encore été retournée, une seule carte est retournée sur le plateau ou deux
+     */
     public void retourner(int i) {
         if (this.secondeCarte == null) {
             if (this.cartePrecedante != null) {
@@ -73,6 +101,9 @@ public class Model implements Sujet{
         return this.rep;
     }
 
+    /**
+     * Change la valeur associée au répértoire, méthode appellée par le bouton correspondant dans ControleurBoutons
+     */
     public void setRep(int i){
         if (i == 1) {
             this.rep = "smiley";

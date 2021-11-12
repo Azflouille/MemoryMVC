@@ -1,13 +1,21 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Class Controleur du MVC, gère les click de souris
+ */
 public class ControleurClick implements MouseListener {
+
     private Model model;
 
     public ControleurClick(Model m){
         this.model = m;
     }
 
+    /**
+     * Méthode mouse clicked, récupère les coordonnées du click pour retourner la carte correspondante
+     *
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         int numCaseX = e.getX()/120;

@@ -1,5 +1,10 @@
+/**
+ * Classe carte
+ */
 public class Carte {
+
 	private boolean visible; // false=cachee true=visible
+
 	private int num; 		 // numero du fichier image
 
 	public Carte(int num) {

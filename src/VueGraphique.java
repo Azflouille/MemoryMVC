@@ -3,8 +3,15 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * Class vue du MVC, affiche les cartes
+ */
 public class VueGraphique extends JPanel implements Observateur{
 
+    /**
+     * Méthode Actualiser
+     * Récupère la liste de cartes du modèle et les affiche
+     */
     @Override
     public void actualiser(Sujet s) {
         if (this.countComponents() != 0) {
